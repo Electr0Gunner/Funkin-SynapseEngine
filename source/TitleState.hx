@@ -105,6 +105,12 @@ class TitleState extends MusicBeatState
 			}
 		}
 
+		httpRequest.onError = function (error) {
+			trace('HTTP Error: $error');
+		}
+
+		httpRequest.request();
+
 		if (FlxG.save.data.weekUnlocked != null)
 		{
 			// FIX LATER!!!
