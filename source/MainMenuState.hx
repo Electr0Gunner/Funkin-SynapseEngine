@@ -26,10 +26,6 @@ using StringTools;
 #if discord_rpc
 import Discord.DiscordClient;
 #end
-#if newgrounds
-import io.newgrounds.NG;
-import ui.NgPrompt;
-#end
 
 class MainMenuState extends MusicBeatState
 {
@@ -121,9 +117,6 @@ class MainMenuState extends MusicBeatState
 		versionShit.scrollFactor.set();
 		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
-
-		versionShit.text += '(Newgrounds exclusive preview)';
-
 		// NG.core.calls.event.logEvent('swag').send();
 
 		super.create();
@@ -155,48 +148,6 @@ class MainMenuState extends MusicBeatState
 
 		FlxG.openURL('https://www.kickstarter.com/projects/funkin/friday-night-funkin-the-full-ass-game/');
 		#end
-	}
-	#end
-
-	#if newgrounds
-	function selectLogin()
-	{
-		openNgPrompt(NgPrompt.showLogin());
-	}
-
-	function selectLogout()
-	{
-		openNgPrompt(NgPrompt.showLogout());
-	}
-
-	function showSavedSessionFailed()
-	{
-		openNgPrompt(NgPrompt.showSavedSessionFailed());
-	}
-
-	/**
-	 * Calls openPrompt and redraws the login/logout button
-	 * @param prompt 
-	 * @param onClose 
-	 */
-	public function openNgPrompt(prompt:Prompt, ?onClose:Void->Void)
-	{
-		var onPromptClose = checkLoginStatus;
-		if (onClose != null)
-		{
-			onPromptClose = function()
-			{
-				checkLoginStatus();
-				onClose();
-			}
-		}
-
-		openPrompt(prompt, onPromptClose);
-	}
-
-	function checkLoginStatus()
-	{
-		var prevLoggedIn = menuItems.has("logout");
 	}
 	#end
 

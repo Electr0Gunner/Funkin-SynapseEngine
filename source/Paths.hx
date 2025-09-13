@@ -85,6 +85,14 @@ class Paths
 		return getPath('music/$key.$SOUND_EXT', MUSIC, library);
 	}
 
+	static public function video(key:String, ?library:String)
+	{
+		if (library != null)
+			return 'assets/$library/videos/$key.mp4';
+		else
+			return 'assets/videos/$key.mp4';
+	}
+
 	inline static public function voices(song:String)
 	{
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';

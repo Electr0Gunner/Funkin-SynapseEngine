@@ -63,9 +63,7 @@ class TitleState extends MusicBeatState
 	var alphaShader:BuildingShaders;
 	var thingie:FlxSprite;
 
-	var video:Video;
-	var netStream:NetStream;
-	private var overlay:Sprite;
+	var canUpdate:Bool = false;
 
 	override public function create():Void
 	{
@@ -93,6 +91,19 @@ class TitleState extends MusicBeatState
 		PreferencesMenu.initPrefs();
 		PlayerSettings.init();
 		Highscore.load();
+
+		trace('Looking for newer versions');
+		var httpRequest = new haxe.Http('https://raw.githubusercontent.com/Electr0Gunner/Funkin-VLegacy/main/engineVersion.txt');
+
+		httpRequest.onData = function (data:String)
+		{
+			FunkinGame.LATEST_ENGINE_VERSION =  data.split('\n')[0].trim();
+			trace('version online: ' + FunkinGame.LATEST_ENGINE_VERSION + ', your version: ' + FunkinGame.ENGINE_VERSION);
+			if(FunkinGame.LATEST_ENGINE_VERSION != FunkinGame.ENGINE_VERSION) {
+				trace('versions arent matching!');
+				canUpdate = true;
+			}
+		}
 
 		if (FlxG.save.data.weekUnlocked != null)
 		{
@@ -165,42 +176,6 @@ class TitleState extends MusicBeatState
 			DiscordClient.shutdown();
 		});
 		#end
-	}
-
-	private function client_onMetaData(metaData:Dynamic)
-	{
-		video.attachNetStream(netStream);
-
-		video.width = video.videoWidth;
-		video.height = video.videoHeight;
-		// video.
-	}
-
-	private function netStream_onAsyncError(event:AsyncErrorEvent):Void
-	{
-		trace("Error loading video");
-	}
-
-	private function netConnection_onNetStatus(event:NetStatusEvent):Void
-	{
-		if (event.info.code == 'NetStream.Play.Complete')
-		{
-			// netStream.dispose();
-			// FlxG.stage.removeChild(video);
-
-			startIntro();
-		}
-
-		trace(event.toString());
-	}
-
-	private function overlay_onMouseDown(event:MouseEvent):Void
-	{
-		netStream.soundTransform.volume = 0.2;
-		netStream.soundTransform.pan = -1;
-		// netStream.play(Paths.file('music/kickstarterTrailer.mp4'));
-
-		FlxG.stage.removeChild(overlay);
 	}
 
 	var logoBl:FlxSprite;
@@ -394,7 +369,6 @@ class TitleState extends MusicBeatState
 		{
 			if (FlxG.sound.music != null)
 				FlxG.sound.music.onComplete = null;
-			// netStream.play(Paths.file('music/kickstarterTrailer.mp4'));
 
 			titleText.animation.play('press');
 
@@ -402,37 +376,26 @@ class TitleState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
 
 			transitioning = true;
-			// FlxG.sound.music.stop();
 
-			#if newgrounds
-			if (!OutdatedSubState.leftState)
+			new FlxTimer().start(2, function(tmr:FlxTimer)
 			{
-				//TODO: replace this with github
-				/*
-				NGio.checkVersion(function(version)
+
+				if (!OutdatedSubState.leftState)
 				{
-					// Check if version is outdated
 
-					var localVersion:String = "v" + Application.current.meta.get('version');
-					var onlineVersion = version.split(" ")[0].trim();
+					//TODO: replace this with github
 
-					if (version.trim() != onlineVersion)
+					if (canUpdate)
 					{
-						trace('OLD VERSION!');
-						// FlxG.switchState(new OutdatedSubState());
+						FlxG.switchState(new OutdatedSubState());
 					}
 					else
-					{
-						// FlxG.switchState(new MainMenuState());
-					}
-
-					// REDO FOR ITCH/FINAL SHIT
+						FlxG.switchState(new MainMenuState());
+				}
+				else
 					FlxG.switchState(new MainMenuState());
-				});*/
-			}
-			#else
-			FlxG.switchState(new MainMenuState());
-			#end
+			});
+
 			// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
 		}
 
