@@ -1,5 +1,10 @@
 package;
 
+#if MODDING_ALLOWED
+import modding.SynapseModPack;
+import modding.SynapseModMetaDataFormat;
+import flixel.system.FlxModding;
+#end
 import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Lib;
@@ -72,6 +77,10 @@ class Main extends Sprite
 
 		#if !debug
 		initialState = TitleState;
+		#end
+
+		#if MODDING_ALLOWED
+		FlxModding.init(SynapseModPack, SynapseModMetaDataFormat);
 		#end
 
 		addChild(new FlxGame(gameWidth, gameHeight, initialState, framerate, framerate, skipSplash, startFullscreen));

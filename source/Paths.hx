@@ -19,33 +19,29 @@ class Paths
 	static function getPath(file:String, type:AssetType, library:Null<String>)
 	{
 		if (library != null)
-			return getLibraryPath(file, library);
+			return getFolderPath(file, library);
 
+		var levelPath = '';
 		if (currentLevel != null)
 		{
-			var levelPath = getLibraryPathForce(file, currentLevel);
-			if (OpenFlAssets.exists(levelPath, type))
-				return levelPath;
-
-			levelPath = getLibraryPathForce(file, "shared");
+			levelPath = getFolderPath(file, currentLevel);
 			if (OpenFlAssets.exists(levelPath, type))
 				return levelPath;
 		}
 
-		return getPreloadPath(file);
+		levelPath = getFolderPath(file);
+		if (OpenFlAssets.exists(levelPath, type))
+			return levelPath;
+
+		return getRootPath(file);
 	}
 
-	static public function getLibraryPath(file:String, library = "preload")
+	inline static function getFolderPath(file:String, library:String = "shared")
 	{
-		return if (library == "preload" || library == "default") getPreloadPath(file); else getLibraryPathForce(file, library);
+		return 'assets/$library/$file';
 	}
 
-	inline static function getLibraryPathForce(file:String, library:String)
-	{
-		return '$library:assets/$library/$file';
-	}
-
-	inline static function getPreloadPath(file:String)
+	inline static function getRootPath(file:String)
 	{
 		return 'assets/$file';
 	}
@@ -95,12 +91,12 @@ class Paths
 
 	inline static public function voices(song:String)
 	{
-		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
+		return 'assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
 
 	inline static public function inst(song:String)
 	{
-		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+		return 'assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
 	}
 
 	inline static public function image(key:String, ?library:String)

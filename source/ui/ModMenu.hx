@@ -1,25 +1,28 @@
 package ui;
 
+import modding.SynapseModPack;
+import flixel.system.FlxModding;
 import flixel.FlxG;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
+import Controls;
 #if cpp
-//import polymod.Polymod;
 import sys.FileSystem;
 #end
 
-class ModMenu extends ui.OptionsState.Page
+class ModMenu extends MusicBeatSubstate
 {
 	var grpMods:FlxTypedGroup<ModMenuItem>;
 	var enabledMods:Array<String> = [];
-	var modFolders:Array<String> = [];
+	var loadedMods:Array<String> = [];
 
 	var curSelected:Int = 0;
 
 	public function new():Void
 	{
 		super();
+		bgColor = 0x00000000;
 
 		grpMods = new FlxTypedGroup<ModMenuItem>();
 		add(grpMods);
@@ -65,10 +68,10 @@ class ModMenu extends ui.OptionsState.Page
 	{
 		curSelected += change;
 
-		if (curSelected >= modFolders.length)
+		if (curSelected >= loadedMods.length)
 			curSelected = 0;
 		if (curSelected < 0)
-			curSelected = modFolders.length - 1;
+			curSelected = loadedMods.length - 1;
 
 		for (txt in 0...grpMods.length)
 		{
@@ -91,31 +94,23 @@ class ModMenu extends ui.OptionsState.Page
 			grpMods.remove(grpMods.members[0], true);
 		}
 
-		#if desktop
-		var modList = [];
-		modFolders = [];
+		#if MODDING_ALLOWED
+		loadedMods = [];
 		
 		trace("mods path:" + FileSystem.absolutePath(MOD_PATH));
-		if (!FileSystem.exists(MOD_PATH))
-		{
-			FlxG.log.warn("missing mods folder, expected: " + FileSystem.absolutePath(MOD_PATH));
-			return;
-		}
-		
-		for (file in FileSystem.readDirectory(MOD_PATH))
-		{
-			if (FileSystem.isDirectory(MOD_PATH + file))
-				modFolders.push(file);
-		}
-
 		enabledMods = [];
 
-		//modList = Polymod.scan(MOD_PATH);
+		for (modpack in FlxModding.modpacks)
+		{
+			var synapseModPack:SynapseModPack = cast modpack;
+			loadedMods.push(synapseModPack.title);
+		}
+		
 
-		trace(modList);
+		trace(loadedMods);
 
 		var loopNum:Int = 0;
-		for (i in modFolders)
+		for (i in loadedMods)
 		{
 			var txt:ModMenuItem = new ModMenuItem(0, 10 + (40 * loopNum), 0, i, 32);
 			txt.text = i;

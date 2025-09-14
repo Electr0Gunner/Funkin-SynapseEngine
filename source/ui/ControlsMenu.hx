@@ -24,7 +24,7 @@ class ControlsMenu extends ui.OptionsState.Page
 	 */
 	static var controlGroups:Array<Array<Control>> = [
 		[NOTE_UP, NOTE_DOWN, NOTE_LEFT, NOTE_RIGHT],
-		[UI_UP, UI_DOWN, UI_LEFT, UI_RIGHT, ACCEPT, BACK]
+		[UI_UP, UI_DOWN, UI_LEFT, UI_RIGHT, ACCEPT, BACK, DEBUG_1, DEBUG_2]
 	];
 
 	var itemGroups:Array<Array<InputItem>> = [for (i in 0...controlGroups.length) []];

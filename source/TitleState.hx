@@ -67,10 +67,7 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		#if polymod
-		polymod.Polymod.init({modRoot: "mods", dirs: ['introMod'], framework: OPENFL});
-		// FlxG.bitmap.clearCache();
-		#end
+
 
 		startedIntro = false;
 
@@ -329,17 +326,6 @@ class TitleState extends MusicBeatState
 		if (FlxG.keys.justPressed.EIGHT)
 			FlxG.switchState(new CutsceneAnimTestState());
 		#end
-
-		/* 
-			if (FlxG.keys.justPressed.R)
-			{
-				#if polymod
-				polymod.Polymod.init({modRoot: "mods", dirs: ['introMod']});
-				trace('reinitialized');
-				#end
-			}
-
-		 */
 
 		if (FlxG.sound.music != null)
 			Conductor.songPosition = FlxG.sound.music.time;

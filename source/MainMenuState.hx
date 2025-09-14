@@ -1,5 +1,6 @@
 package;
 
+import ui.ModMenu;
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -199,6 +200,12 @@ class MainMenuState extends MusicBeatState
 		{
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			FlxG.switchState(new TitleState());
+		}
+
+		if (controls.DEBUG_1)
+		{
+			FlxG.sound.play(Paths.sound('cancelMenu'));
+			openSubState(new ModMenu());
 		}
 
 		super.update(elapsed);

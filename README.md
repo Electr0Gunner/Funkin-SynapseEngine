@@ -7,7 +7,7 @@ Modding engine created to make modding easier on legacy versions of FNF (<= 0.2.
 - Speed-up loading.
 - Soft-code the gameplay.
 - Implement custom menus.
-- Implement Polymod.
+- Implement Modding using Flixel-Modding and RuleScript.
 
 ## Credits / shoutouts
 

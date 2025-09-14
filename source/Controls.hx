@@ -31,6 +31,8 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
+	DEBUG_1;
+	DEBUG_2;
 	#if CAN_CHEAT
 	CHEAT;
 	#end
@@ -67,6 +69,8 @@ abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	var DEBUG_1 = "debug_1";
+	var DEBUG_2 = "debug_2";
 	#if CAN_CHEAT
 	var CHEAT = "cheat";
 	#end
@@ -120,6 +124,8 @@ class Controls extends FlxActionSet
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
+	var _debug_1 = new FlxActionDigital(Action.DEBUG_1);
+	var _debug_2 = new FlxActionDigital(Action.DEBUG_2);
 	#if CAN_CHEAT
 	var _cheat = new FlxActionDigital(Action.CHEAT);
 	#end
@@ -163,6 +169,8 @@ class Controls extends FlxActionSet
 	public var BACK  (get, never):Bool; inline function get_BACK  () return _back  .check();
 	public var PAUSE (get, never):Bool; inline function get_PAUSE () return _pause .check();
 	public var RESET (get, never):Bool; inline function get_RESET () return _reset .check();
+	public var DEBUG_1 (get, never):Bool; inline function get_DEBUG_1 () return _debug_1 .check();
+	public var DEBUG_2 (get, never):Bool; inline function get_DEBUG_2 () return _debug_2 .check();
 	#if CAN_CHEAT
 	public var CHEAT (get, never):Bool; inline function get_CHEAT () return _cheat.check ();
 	#end
@@ -199,6 +207,8 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		add(_debug_1);
+		add(_debug_2);
 		#if CAN_CHEAT
 		add(_cheat);
 		#end
@@ -259,6 +269,8 @@ class Controls extends FlxActionSet
 			case BACK: _back;
 			case PAUSE: _pause;
 			case RESET: _reset;
+			case DEBUG_1: _debug_1;
+			case DEBUG_2: _debug_2;
 			#if CAN_CHEAT
 			case CHEAT: _cheat;
 			#end
@@ -321,6 +333,10 @@ class Controls extends FlxActionSet
 				func(_pause, JUST_PRESSED);
 			case RESET:
 				func(_reset, JUST_PRESSED);
+			case DEBUG_1:
+				func(_debug_1, JUST_PRESSED);
+			case DEBUG_2:
+				func(_debug_2, JUST_PRESSED);
 			#if CAN_CHEAT
 			case CHEAT:
 				func(_cheat, JUST_PRESSED);
@@ -474,6 +490,8 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [X, BACKSPACE, ESCAPE]);
 				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				bindKeys(Control.RESET, [R]);
+				bindKeys(Control.DEBUG_1, [SEVEN]);
+				bindKeys(Control.DEBUG_2, [EIGHT]);
 			case Duo(true):
 				bindKeys(Control.UI_UP, [W]);
 				bindKeys(Control.UI_DOWN, [S]);
@@ -487,6 +505,8 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [H, X]);
 				bindKeys(Control.PAUSE, [ONE]);
 				bindKeys(Control.RESET, [R]);
+				bindKeys(Control.DEBUG_1, [SEVEN]);
+				bindKeys(Control.DEBUG_2, [EIGHT]);
 			case Duo(false):
 				bindKeys(Control.UI_UP, [FlxKey.UP]);
 				bindKeys(Control.UI_DOWN, [FlxKey.DOWN]);
@@ -500,6 +520,8 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [P]);
 				bindKeys(Control.PAUSE, [ENTER]);
 				bindKeys(Control.RESET, [BACKSPACE]);
+				bindKeys(Control.DEBUG_1, [SEVEN]);
+				bindKeys(Control.DEBUG_2, [EIGHT]);
 			case None: // nothing
 			case Custom: // nothing
 		}
@@ -566,7 +588,9 @@ class Controls extends FlxActionSet
 			Control.NOTE_LEFT => [DPAD_LEFT, X, LEFT_STICK_DIGITAL_LEFT, RIGHT_STICK_DIGITAL_LEFT],
 			Control.NOTE_RIGHT => [DPAD_RIGHT, B, LEFT_STICK_DIGITAL_RIGHT, RIGHT_STICK_DIGITAL_RIGHT],
 			Control.PAUSE => [START],
-			Control.RESET => [Y]
+			Control.RESET => [Y],
+			Control.DEBUG_1 => [LEFT_SHOULDER],
+			Control.DEBUG_2 => [RIGHT_SHOULDER]
 			#if CAN_CHEAT
 			,Control.CHEAT => [X]
 			#end
