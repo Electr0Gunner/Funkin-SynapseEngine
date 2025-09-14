@@ -1,4 +1,4 @@
-# Friday Night Funkin VLegacy Engine
+# Friday Night Funkin Synapse Engine
 
 Modding engine created to make modding easier on legacy versions of FNF (<= 0.2.8), made to limit source code editing as much as possible and follow the existing modding methods (V-Slice).
 

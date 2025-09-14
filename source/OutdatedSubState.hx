@@ -34,7 +34,7 @@ class OutdatedSubState extends MusicBeatState
 	{
 		if (controls.ACCEPT)
 		{
-			FlxG.openURL("https://github.com/Electr0Gunner/Funkin-VLegacy");
+			FlxG.openURL("https://github.com/Electr0Gunner/Funkin-SynapseEngine");
 		}
 		if (controls.BACK)
 		{

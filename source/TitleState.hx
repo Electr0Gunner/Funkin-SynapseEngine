@@ -93,7 +93,7 @@ class TitleState extends MusicBeatState
 		Highscore.load();
 
 		trace('Looking for newer versions');
-		var httpRequest = new haxe.Http('https://raw.githubusercontent.com/Electr0Gunner/Funkin-VLegacy/main/engineVersion.txt');
+		var httpRequest = new haxe.Http('https://raw.githubusercontent.com/Electr0Gunner/Funkin-SynapseEngine/main/engineVersion.txt');
 
 		httpRequest.onData = function (data:String)
 		{
