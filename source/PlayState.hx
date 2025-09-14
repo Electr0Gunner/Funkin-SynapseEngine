@@ -47,8 +47,6 @@ import shaderslmfao.BuildingShaders;
 import shaderslmfao.ColorSwap;
 import ui.PreferencesMenu;
 
-import hxcodec.flixel.FlxVideoSprite;
-
 using StringTools;
 
 #if discord_rpc
@@ -935,17 +933,17 @@ class PlayState extends MusicBeatState
 	function ughIntro()
 	{
 		inCutscene = true;
+		camHUD.visible = false;
 
 		var blackShit:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		blackShit.scrollFactor.set();
 		add(blackShit);
 
-		var vid:FlxVideoSprite = new FlxVideoSprite();
-		vid.play(Paths.video('ughCutscene', "week7"));
+		var vid:FunkinVideo = new FunkinVideo();
 		vid.scrollFactor.set();
-		vid.bitmap.onEndReached.add(function()
+		vid.onEndReached.add(function()
 		{
-			vid.bitmap.dispose();
+			vid.destroy();
 			remove(vid);
 			remove(blackShit);
 
@@ -955,8 +953,7 @@ class PlayState extends MusicBeatState
 			cameraMovement();
 		});
 		add(vid);
-
-		camHUD.visible = false;
+		vid.playVideo(Paths.video('ughCutscene', "week7"));
 
 		FlxG.camera.zoom = defaultCamZoom * 1.2;
 
@@ -1030,17 +1027,17 @@ class PlayState extends MusicBeatState
 	function gunsIntro()
 	{
 		inCutscene = true;
+		camHUD.visible = false;
 
 		var blackShit:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		blackShit.scrollFactor.set();
 		add(blackShit);
 
-		var vid:FlxVideoSprite = new FlxVideoSprite();
-		vid.play(Paths.video('gunsCutscene', "week7"));
+		var vid:FunkinVideo = new FunkinVideo();
 		vid.scrollFactor.set();
-		vid.bitmap.onEndReached.add(function()
+		vid.onEndReached.add(function()
 		{
-			vid.bitmap.dispose();
+			vid.destroy();
 			remove(vid);
 			remove(blackShit);
 
@@ -1050,8 +1047,7 @@ class PlayState extends MusicBeatState
 			cameraMovement();
 		});
 		add(vid);
-
-		camHUD.visible = false;
+		vid.playVideo(Paths.video('gunsCutscene', "week7"));
 
 		/* camFollow.setPosition(camPos.x, camPos.y);
 
@@ -1112,17 +1108,17 @@ class PlayState extends MusicBeatState
 	function stressIntro()
 	{
 		inCutscene = true;
+		camHUD.visible = false;
 
 		var blackShit:FlxSprite = new FlxSprite(-200, -200).makeGraphic(FlxG.width * 2, FlxG.height * 2, FlxColor.BLACK);
 		blackShit.scrollFactor.set();
 		add(blackShit);
 
-		var vid:FlxVideoSprite = new FlxVideoSprite();
-		vid.play(Paths.video('stressCutscene', "week7"));
+		var vid:FunkinVideo = new FunkinVideo();
 		vid.scrollFactor.set();
-		vid.bitmap.onEndReached.add(function()
+		vid.onEndReached.add(function()
 		{
-			vid.bitmap.dispose();
+			vid.destroy();
 			remove(vid);
 			remove(blackShit);
 
@@ -1132,9 +1128,7 @@ class PlayState extends MusicBeatState
 			cameraMovement();
 		});
 		add(vid);
-
-
-		camHUD.visible = false;
+		vid.playVideo(Paths.video('stressCutscene', "week7"));
 
 		/* camHUD.visible = false;
 

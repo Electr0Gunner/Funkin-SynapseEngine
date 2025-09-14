@@ -1,11 +1,10 @@
 package;
 
 import flixel.FlxG;
-import hxcodec.flixel.FlxVideoSprite;
 
 class VideoState extends MusicBeatState
 {
-	var kickstarterVideo:FlxVideoSprite;
+	var kickstarterVideo:FunkinVideo;
 
 	public static var seenVideo:Bool = false;
 
@@ -21,9 +20,9 @@ class VideoState extends MusicBeatState
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
-		kickstarterVideo = new FlxVideoSprite();
-		kickstarterVideo.play(Paths.video('kickstarterTrailer'));
-		kickstarterVideo.bitmap.onEndReached.add(finishVid);
+		kickstarterVideo = new FunkinVideo();
+		kickstarterVideo.onEndReached.add(finishVid);
+		kickstarterVideo.playVideo(Paths.video('kickstarterTrailer'));
 		add(kickstarterVideo);
 	}
 
@@ -37,7 +36,8 @@ class VideoState extends MusicBeatState
 
 	function finishVid():Void
 	{
-		kickstarterVideo.bitmap.dispose();
+		kickstarterVideo.destroy();
+		remove(kickstarterVideo);
 		TitleState.initialized = false;
 		FlxG.switchState(new TitleState());
 	}

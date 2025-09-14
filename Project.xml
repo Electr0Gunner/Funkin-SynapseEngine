@@ -114,7 +114,7 @@
 
 	<!-- _______________________________ Defines ________________________________-->
 
-	<define name="VIDEOS_ALLOWED" if="windows || linux || mobile || mac" unless="32bits"/>
+	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits"/>
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -135,7 +135,7 @@
 	<haxelib name="thx.semver" />
 	<haxelib name="hxcpp-debug-server" if="desktop debug"/>
 	
-	<haxelib name="hxCodec" if="desktop || mobile" />
+	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
 
 	<!-- <haxelib name="flixel-animate" /> -->
 	<!-- <haxelib name="spinehaxe" /> -->
