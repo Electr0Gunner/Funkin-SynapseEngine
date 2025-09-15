@@ -1,8 +1,8 @@
 package;
 
 #if MODDING_ALLOWED
-import modding.SynapseModPack;
-import modding.SynapseModMetaDataFormat;
+import funkin.modding.SynapseModPack;
+import funkin.modding.SynapseModMetaDataFormat;
 import flixel.system.FlxModding;
 #end
 import flixel.FlxGame;
@@ -16,7 +16,7 @@ class Main extends Sprite
 {
 	var gameWidth:Int = 1280; // Width of the game in pixels (might be less / more in actual pixels depending on your zoom).
 	var gameHeight:Int = 720; // Height of the game in pixels (might be less / more in actual pixels depending on your zoom).
-	var initialState:Class<FlxState> = TitleState; // The FlxState the game starts with.
+	var initialState:Class<FlxState> = funkin.ui.TitleState; // The FlxState the game starts with.
 	var zoom:Float = -1; // If -1, zoom is automatically calculated to fit the window dimensions.
 	#if web
 	var framerate:Int = 60; // How many frames per second the game should run at.

@@ -28,6 +28,13 @@
       "version": null
     },
     {
+      "name": "flxanimate",
+      "type": "git",
+      "dir": null,
+      "ref": "master",
+      "url": "https://github.com/Dot-Stuff/flxanimate"
+    },
+    {
       "name": "hscript",
       "type": "haxelib",
       "version": null

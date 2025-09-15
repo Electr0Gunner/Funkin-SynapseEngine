@@ -108,6 +108,7 @@
 
 	<define name="VIDEOS_ALLOWED" if="desktop || mobile" unless="32bits"/>
 	<define name="MODDING_ALLOWED" if="desktop"/>
+	<haxedef name="FLX_RULESCRIPT_EXT" value=".hx"/> <!-- change the rulescript scripting file extension to match the original extension instead of .rhx-->
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
@@ -115,6 +116,7 @@
 	<haxelib name="flixel" />
 	<haxelib name="flixel-addons" />
 	<haxelib name="flixel-ui" />
+	<haxelib name="flxanimate" />
 
 	<haxelib name="hxCodec" if="VIDEOS_ALLOWED" />
 
